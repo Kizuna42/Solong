@@ -6,7 +6,7 @@
 /*   By: kizuna <kizuna@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 14:15:36 by kishino           #+#    #+#             */
-/*   Updated: 2025/04/12 19:17:42 by kizuna           ###   ########.fr       */
+/*   Updated: 2025/04/12 19:22:06 by kizuna           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,5 @@ int		ft_lstsize(t_list *lst);
 t_list	*ft_lstnew(void *content);
 t_list	*ft_lstlast(t_list *lst);
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
-
-/* get_next_lineはget_next_line.hで宣言されています */
 
 #endif
