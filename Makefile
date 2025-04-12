@@ -6,7 +6,7 @@
 #    By: kizuna <kizuna@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/04/12 18:09:00 by kizuna            #+#    #+#              #
-#    Updated: 2025/04/12 18:34:10 by kizuna           ###   ########.fr        #
+#    Updated: 2025/04/12 19:02:51 by kizuna           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,13 @@ SRCS = main.c \
 		game_init.c \
 		game_loop.c \
 		render.c \
-		utils.c
+		utils.c \
+		map_parser_utils1.c \
+		map_parser_utils2.c \
+		map_parser_utils3.c \
+		validate_map.c \
+		map_path.c \
+		game_movement.c
 
 OBJS = $(SRCS:.c=.o)
 
