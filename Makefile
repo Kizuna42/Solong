@@ -6,7 +6,7 @@
 #    By: kizuna <kizuna@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/04/12 18:09:00 by kizuna            #+#    #+#              #
-#    Updated: 2025/04/12 19:02:51 by kizuna           ###   ########.fr        #
+#    Updated: 2025/04/15 16:16:16 by kizuna           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,11 +34,19 @@ OBJS = $(SRCS:.c=.o)
 LIBFT_DIR = libft
 LIBFT = $(LIBFT_DIR)/libft.a
 
-MLX_DIR = minilibx_opengl_20191021
+# 環境に応じてMLXライブラリを選択
+ifeq ($(shell uname), Darwin)
+    MLX_DIR = minilibx_opengl_20191021
+    MLX_LIBS = -L$(MLX_DIR) -lmlx -framework OpenGL -framework AppKit
+else
+    MLX_DIR = minilibx-linux
+    MLX_LIBS = -L$(MLX_DIR) -lmlx -lXext -lX11
+endif
+
 MLX = $(MLX_DIR)/libmlx.a
 
 INCLUDES = -I. -I$(LIBFT_DIR) -I$(MLX_DIR)
-LIBS = -L$(LIBFT_DIR) -lft -L$(MLX_DIR) -lmlx -framework OpenGL -framework AppKit
+LIBS = -L$(LIBFT_DIR) -lft $(MLX_LIBS)
 
 all: $(NAME)
 
@@ -46,22 +54,24 @@ $(NAME): $(LIBFT) $(MLX) $(OBJS)
 	$(CC) $(CFLAGS) $(OBJS) $(LIBS) -o $(NAME)
 
 $(LIBFT):
-	make -C $(LIBFT_DIR)
+	@echo "Compiling libft library"
+	$(MAKE) -C $(LIBFT_DIR)
 
 $(MLX):
-	make -C $(MLX_DIR)
+	@echo "Compiling MLX library"
+	$(MAKE) -C $(MLX_DIR)
 
 %.o: %.c
 	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
 clean:
 	$(RM) $(OBJS)
-	make -C $(LIBFT_DIR) clean
-	make -C $(MLX_DIR) clean
+	$(MAKE) -C $(LIBFT_DIR) clean
+	$(MAKE) -C $(MLX_DIR) clean
 
 fclean: clean
 	$(RM) $(NAME)
-	make -C $(LIBFT_DIR) fclean
+	$(MAKE) -C $(LIBFT_DIR) fclean
 
 re: fclean all
 

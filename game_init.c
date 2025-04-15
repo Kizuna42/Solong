@@ -6,7 +6,7 @@
 /*   By: kizuna <kizuna@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 18:09:00 by kizuna            #+#    #+#             */
-/*   Updated: 2025/04/12 18:58:43 by kizuna           ###   ########.fr       */
+/*   Updated: 2025/04/15 16:20:47 by kizuna           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,10 @@ int	init_mlx(t_game *game)
 		print_error("Failed to initialize MLX");
 		return (0);
 	}
-	game->mlx.win = mlx_new_window(game->mlx.mlx, game->map.width * TILE_SIZE,
-			game->map.height * TILE_SIZE, "so_long");
+	game->mlx.win = mlx_new_window(game->mlx.mlx,
+		game->map.width * TILE_SIZE + 2,
+		game->map.height * TILE_SIZE + 2,
+		"so_long");
 	if (!game->mlx.win)
 	{
 		print_error("Failed to create window");

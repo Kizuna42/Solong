@@ -6,7 +6,7 @@
 /*   By: kizuna <kizuna@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 18:09:00 by kizuna            #+#    #+#             */
-/*   Updated: 2025/04/12 19:05:02 by kizuna           ###   ########.fr       */
+/*   Updated: 2025/04/15 16:20:47 by kizuna           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 # include "libft/libft.h"
 
 # define MLX_ERROR 1
-# define TILE_SIZE 64
+# define TILE_SIZE 32
 # define KEY_ESC 53
 # define KEY_W 13
 # define KEY_A 0
