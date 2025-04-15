@@ -6,14 +6,29 @@
 /*   By: kizuna <kizuna@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 18:09:00 by kizuna            #+#    #+#             */
-/*   Updated: 2025/04/12 19:02:15 by kizuna           ###   ########.fr       */
+/*   Updated: 2025/04/15 16:26:40 by kizuna           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
+static void	free_textures(t_game *game)
+{
+	if (game->textures.wall)
+		mlx_destroy_image(game->mlx.mlx, game->textures.wall);
+	if (game->textures.floor)
+		mlx_destroy_image(game->mlx.mlx, game->textures.floor);
+	if (game->textures.player)
+		mlx_destroy_image(game->mlx.mlx, game->textures.player);
+	if (game->textures.exit)
+		mlx_destroy_image(game->mlx.mlx, game->textures.exit);
+	if (game->textures.collectible)
+		mlx_destroy_image(game->mlx.mlx, game->textures.collectible);
+}
+
 int	close_game(t_game *game)
 {
+	free_textures(game);
 	mlx_destroy_window(game->mlx.mlx, game->mlx.win);
 	free_map(&game->map);
 	exit(0);
