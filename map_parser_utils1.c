@@ -6,7 +6,7 @@
 /*   By: kizuna <kizuna@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 10:00:00 by kizuna            #+#    #+#             */
-/*   Updated: 2025/04/12 19:01:42 by kizuna           ###   ########.fr       */
+/*   Updated: 2025/04/15 17:17:33 by kizuna           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,10 @@ int	count_map_height(char *filename)
 	height = 0;
 	fd = open(filename, O_RDONLY);
 	if (fd < 0)
+	{
+		print_error("No exist map");
 		return (0);
+	}
 	line = get_next_line(fd);
 	while (line)
 	{

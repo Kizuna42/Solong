@@ -6,7 +6,7 @@
 /*   By: kizuna <kizuna@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 18:09:00 by kizuna            #+#    #+#             */
-/*   Updated: 2025/04/12 19:02:15 by kizuna           ###   ########.fr       */
+/*   Updated: 2025/04/15 17:11:32 by kizuna           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	main(int argc, char **argv)
 	}
 	if (!is_valid_file(argv[1]))
 	{
-		print_error("Invalid file extension. Use .ber files.");
+		print_error("Bad extension");
 		return (1);
 	}
 	init_game_values(&game);

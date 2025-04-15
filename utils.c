@@ -6,7 +6,7 @@
 /*   By: kizuna <kizuna@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 18:09:00 by kizuna            #+#    #+#             */
-/*   Updated: 2025/04/12 19:02:21 by kizuna           ###   ########.fr       */
+/*   Updated: 2025/04/15 17:17:32 by kizuna           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,16 @@ void	print_error(char *message)
 
 int	is_valid_file(char *filename)
 {
-	int	len;
+	int		len;
+	char	*basename;
 
+	if (!filename || !*filename)
+		return (0);
+	basename = filename;
+	while (ft_strchr(basename, '/'))
+		basename = ft_strchr(basename, '/') + 1;
+	if (basename[0] == '.')
+		return (0);
 	len = ft_strlen(filename);
 	if (len < 4)
 		return (0);
