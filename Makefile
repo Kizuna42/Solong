@@ -6,7 +6,7 @@
 #    By: kizuna <kizuna@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/04/12 18:09:00 by kizuna            #+#    #+#              #
-#    Updated: 2025/04/15 16:16:16 by kizuna           ###   ########.fr        #
+#    Updated: 2025/04/19 18:48:41 by kizuna           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,16 +34,10 @@ OBJS = $(SRCS:.c=.o)
 LIBFT_DIR = libft
 LIBFT = $(LIBFT_DIR)/libft.a
 
-# 環境に応じてMLXライブラリを選択
-ifeq ($(shell uname), Darwin)
-    MLX_DIR = minilibx_opengl_20191021
-    MLX_LIBS = -L$(MLX_DIR) -lmlx -framework OpenGL -framework AppKit
-else
-    MLX_DIR = minilibx-linux
-    MLX_LIBS = -L$(MLX_DIR) -lmlx -lXext -lX11
-endif
-
+# Linux環境用のMLXライブラリ設定
+MLX_DIR = minilibx-linux
 MLX = $(MLX_DIR)/libmlx.a
+MLX_LIBS = -L$(MLX_DIR) -lmlx -lXext -lX11 -lm -lz
 
 INCLUDES = -I. -I$(LIBFT_DIR) -I$(MLX_DIR)
 LIBS = -L$(LIBFT_DIR) -lft $(MLX_LIBS)
@@ -58,7 +52,8 @@ $(LIBFT):
 	$(MAKE) -C $(LIBFT_DIR)
 
 $(MLX):
-	@echo "Compiling MLX library"
+	@echo "Compiling MLX library for Linux"
+	cd $(MLX_DIR) && ./configure
 	$(MAKE) -C $(MLX_DIR)
 
 %.o: %.c
