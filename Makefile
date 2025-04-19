@@ -6,7 +6,7 @@
 #    By: kizuna <kizuna@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/04/12 18:09:00 by kizuna            #+#    #+#              #
-#    Updated: 2025/04/19 18:48:41 by kizuna           ###   ########.fr        #
+#    Updated: 2025/04/19 18:56:37 by kizuna           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,10 +34,9 @@ OBJS = $(SRCS:.c=.o)
 LIBFT_DIR = libft
 LIBFT = $(LIBFT_DIR)/libft.a
 
-# Linux環境用のMLXライブラリ設定
 MLX_DIR = minilibx-linux
 MLX = $(MLX_DIR)/libmlx.a
-MLX_LIBS = -L$(MLX_DIR) -lmlx -lXext -lX11 -lm -lz
+MLX_LIBS = -L$(MLX_DIR) -lmlx -lXext -lX11 -lm
 
 INCLUDES = -I. -I$(LIBFT_DIR) -I$(MLX_DIR)
 LIBS = -L$(LIBFT_DIR) -lft $(MLX_LIBS)
@@ -49,24 +48,30 @@ $(NAME): $(LIBFT) $(MLX) $(OBJS)
 
 $(LIBFT):
 	@echo "Compiling libft library"
-	$(MAKE) -C $(LIBFT_DIR)
+	@$(MAKE) -C $(LIBFT_DIR)
 
 $(MLX):
 	@echo "Compiling MLX library for Linux"
-	cd $(MLX_DIR) && ./configure
-	$(MAKE) -C $(MLX_DIR)
+	@cd $(MLX_DIR) && ./configure > /dev/null
+	@sed -i 's/-lbsd//g' $(MLX_DIR)/Makefile.gen
+	@sed -i 's/-lbsd//g' $(MLX_DIR)/test/Makefile.gen
+	@$(MAKE) -C $(MLX_DIR) 2> /dev/null
+	@touch $(MLX)
 
 %.o: %.c
 	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
 clean:
 	$(RM) $(OBJS)
-	$(MAKE) -C $(LIBFT_DIR) clean
-	$(MAKE) -C $(MLX_DIR) clean
+	@$(MAKE) -C $(LIBFT_DIR) clean
+	@if [ -f $(MLX_DIR)/Makefile.gen ]; then \
+		$(MAKE) -C $(MLX_DIR) clean; \
+	fi
 
 fclean: clean
 	$(RM) $(NAME)
-	$(MAKE) -C $(LIBFT_DIR) fclean
+	@$(MAKE) -C $(LIBFT_DIR) fclean
+	@$(RM) $(MLX)
 
 re: fclean all
 
