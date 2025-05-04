@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: kizuna <kizuna@student.42.fr>              +#+  +:+       +#+         #
+#    By: kishino <kishino@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/25 16:01:19 by kizuna            #+#    #+#              #
-#    Updated: 2025/04/12 19:16:18 by kizuna           ###   ########.fr        #
+#    Updated: 2025/05/04 22:36:18 by kishino          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -60,7 +60,8 @@ SRCS = $(FT_IS_DIR)ft_isalnum.c \
 		$(FT_STR_DIR)ft_striteri.c \
 		$(GNL_DIR)get_next_line.c \
 		$(GNL_DIR)get_next_line_utils.c \
-		$(GNL_DIR)get_next_line_utils2.c
+		$(GNL_DIR)get_next_line_utils2.c \
+		$(GNL_DIR)gnl.c \
 
 
 BONUS = $(FT_LST_DIR)ft_lstnew_bonus.c \

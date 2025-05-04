@@ -3,75 +3,76 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: kizuna <kizuna@student.42.fr>              +#+  +:+       +#+         #
+#    By: kishino <kishino@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2025/04/12 18:09:00 by kizuna            #+#    #+#              #
-#    Updated: 2025/04/19 18:56:37 by kizuna           ###   ########.fr        #
+#    Created: 2025/05/04 22:41:36 by kishino           #+#    #+#              #
+#    Updated: 2025/05/04 22:41:37 by kishino          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = so_long
+NAME		=	so_long
 
-CC = cc
-CFLAGS = -Wall -Wextra -Werror
-RM = rm -f
+CC			=	cc
 
-SRCS = main.c \
-		map_parser.c \
-		game_init.c \
-		game_loop.c \
-		render.c \
-		utils.c \
-		map_parser_utils1.c \
-		map_parser_utils2.c \
-		map_parser_utils3.c \
-		validate_map.c \
-		map_path.c \
-		game_movement.c
+FLAG		=	-Wall -Wextra -Werror
 
-OBJS = $(SRCS:.c=.o)
+LIBFT_PATH	=	./libft/
 
-LIBFT_DIR = libft
-LIBFT = $(LIBFT_DIR)/libft.a
+LIBFT_FILE	=	libft.a
 
-MLX_DIR = minilibx-linux
-MLX = $(MLX_DIR)/libmlx.a
-MLX_LIBS = -L$(MLX_DIR) -lmlx -lXext -lX11 -lm
+MLX_FILE	=	libmlx.a
 
-INCLUDES = -I. -I$(LIBFT_DIR) -I$(MLX_DIR)
-LIBS = -L$(LIBFT_DIR) -lft $(MLX_LIBS)
+LIBFT_LIB	=	$(addprefix $(LIBFT_PATH), $(LIBFT_FILE))
+
+MLX_FLAG	=	-lX11 -lXext
+
+MLX_PATH	=	./minilibx-linux/
+
+MLX_LIB		=	$(addprefix $(MLX_PATH), $(MLX_FILE))
+
+MLX_EX		=	$(MLX_LIB) $(MLX_FLAG)
+
+C_FILE		=	map.c				\
+				map_checker.c		\
+				render.c			\
+				render_mouv.c		\
+				set.c				\
+				texture.c			\
+				utils.c				\
+
+SRC_DIR		=	./core/
+
+INC_DIR		=	./includes/
+
+SRC			=	$(addprefix $(SRC_DIR),$(C_FILE))
+
+OBJ			=	$(SRC:.c=.o)
+
+.c.o:
+	$(CC) $(FLAG) -c $< -o $@
 
 all: $(NAME)
 
-$(NAME): $(LIBFT) $(MLX) $(OBJS)
-	$(CC) $(CFLAGS) $(OBJS) $(LIBS) -o $(NAME)
+lib:
+	@make -C $(LIBFT_PATH)
 
-$(LIBFT):
-	@echo "Compiling libft library"
-	@$(MAKE) -C $(LIBFT_DIR)
+mlx:
+	@make -sC $(MLX_PATH)
 
-$(MLX):
-	@echo "Compiling MLX library for Linux"
-	@cd $(MLX_DIR) && ./configure > /dev/null
-	@sed -i 's/-lbsd//g' $(MLX_DIR)/Makefile.gen
-	@sed -i 's/-lbsd//g' $(MLX_DIR)/test/Makefile.gen
-	@$(MAKE) -C $(MLX_DIR) 2> /dev/null
-	@touch $(MLX)
-
-%.o: %.c
-	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
+$(NAME): lib mlx $(OBJ)
+	$(CC) $(OBJ) $(LIBFT_LIB) $(MLX_EX) -o $(NAME)
+	@echo "\033[1;32m./so_long created\n"
 
 clean:
-	$(RM) $(OBJS)
-	@$(MAKE) -C $(LIBFT_DIR) clean
-	@if [ -f $(MLX_DIR)/Makefile.gen ]; then \
-		$(MAKE) -C $(MLX_DIR) clean; \
-	fi
+	@make clean -sC $(MLX_PATH)
+	@make clean -sC $(LIBFT_PATH)
+	@rm -f $(OBJ)
+	@echo "\033[1;32mDone\n"
 
 fclean: clean
-	$(RM) $(NAME)
-	@$(MAKE) -C $(LIBFT_DIR) fclean
-	@$(RM) $(MLX)
+	@rm -f $(NAME)
+	@make fclean -C $(LIBFT_PATH)
+	@echo "\033[1;32mDone\n"
 
 re: fclean all
 
