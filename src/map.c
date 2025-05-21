@@ -3,15 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   map.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kishino <kishino@student.42.fr>            +#+  +:+       +#+        */
+/*   By: kizuna <kizuna@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 15:06:53 by kishino           #+#    #+#             */
-/*   Updated: 2025/05/21 15:06:54 by kishino          ###   ########.fr       */
+/*   Updated: 2025/05/21 15:26:38 by kizuna           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/so_long.h"
 
+/**
+ * マップをファイルから読み込み、文字列として返す
+ *
+ * @param fd 読み込むファイルディスクリプタ
+ * @return マップ文字列、エラーの場合はNULL
+ */
 char	*get_map(int fd)
 {
 	char	*line_map;
@@ -40,9 +46,15 @@ char	*get_map(int fd)
 	return (NULL);
 }
 
+/**
+ * マップメモリを解放する
+ *
+ * @param data ゲームデータ構造体
+ * @return 常にNULL
+ */
 void	*ft_free_map(t_data *data)
 {
-	int		i;
+	int	i;
 
 	i = 0;
 	while (data->map[i] != NULL)
@@ -52,12 +64,19 @@ void	*ft_free_map(t_data *data)
 	}
 	free(data->map);
 	data->map = NULL;
-	return (0);
+	return (NULL);
 }
 
+/**
+ * マップを解析して有効性をチェックする
+ *
+ * @param fd ファイルディスクリプタ
+ * @param data ゲームデータ構造体
+ * @return 有効な場合はマップ配列、無効な場合はNULL
+ */
 char	**parse_map(int fd, t_data *data)
 {
-	int		i;
+	int	i;
 
 	i = 1;
 	data->map = ft_split(get_map(fd), '\n');
@@ -80,9 +99,16 @@ char	**parse_map(int fd, t_data *data)
 	return (data->map);
 }
 
+/**
+ * マップ処理のメイン関数
+ *
+ * @param str コマンドライン引数
+ * @param data ゲームデータ構造体
+ * @return 有効なマップ配列、エラーの場合はNULL
+ */
 char	**map_core(char **str, t_data *data)
 {
-	int		fd;
+	int	fd;
 
 	fd = 0;
 	data->map = NULL;

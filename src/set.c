@@ -3,15 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   set.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kishino <kishino@student.42.fr>            +#+  +:+       +#+        */
+/*   By: kizuna <kizuna@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 15:06:29 by kishino           #+#    #+#             */
-/*   Updated: 2025/05/21 15:06:30 by kishino          ###   ########.fr       */
+/*   Updated: 2025/05/21 15:29:00 by kizuna           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/so_long.h"
 
+/**
+ * ゲームコンテンツの初期設定
+ *
+ * @param content ゲームコンテンツ構造体
+ */
 void	set_content(t_cnt *content)
 {
 	content->exit = 'E';
@@ -24,6 +29,11 @@ void	set_content(t_cnt *content)
 	content->count_c = 0;
 }
 
+/**
+ * ゲーム画像の初期設定
+ *
+ * @param data ゲームデータ構造体
+ */
 void	set_img(t_data *data)
 {
 	data->img.height = 80;
