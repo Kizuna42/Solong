@@ -6,7 +6,7 @@
 #    By: kishino <kishino@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/04 22:41:36 by kishino           #+#    #+#              #
-#    Updated: 2025/05/04 22:41:37 by kishino          ###   ########.fr        #
+#    Updated: 2025/05/21 15:16:04 by kishino          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,7 +40,7 @@ C_FILE		=	map.c				\
 				texture.c			\
 				utils.c				\
 
-SRC_DIR		=	./core/
+SRC_DIR		=	./src/
 
 INC_DIR		=	./includes/
 
