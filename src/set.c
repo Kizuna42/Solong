@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kizuna <kizuna@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kishino <kishino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 15:06:29 by kishino           #+#    #+#             */
-/*   Updated: 2025/05/21 15:29:00 by kizuna           ###   ########.fr       */
+/*   Updated: 2025/05/21 15:45:23 by kishino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,11 +38,11 @@ void	set_img(t_data *data)
 {
 	data->img.height = 80;
 	data->img.width = 80;
-	data->img.floor = "./rsrc/floor_texture.xpm";
-	data->img.wall = "./rsrc/wall_texture.xpm";
-	data->img.collect = "./rsrc/collect.xpm";
-	data->img.player = "./rsrc/mario_player.xpm";
-	data->img.exit = "./rsrc/exit_texture.xpm";
+	data->img.floor = "./textures/floor_texture.xpm";
+	data->img.wall = "./textures/wall_texture.xpm";
+	data->img.collect = "./textures/collect.xpm";
+	data->img.player = "./textures/mario_player.xpm";
+	data->img.exit = "./textures/exit_texture.xpm";
 	data->img.img_wall = mlx_xpm_file_to_image(data->mlx_ptr, data->img.wall,
 			&(data->img.width), &(data->img.height));
 	data->img.img_floor = mlx_xpm_file_to_image(data->mlx_ptr, data->img.floor,
