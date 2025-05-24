@@ -1,1 +1,6 @@
 minilibx-linux/
+*.o
+so_long
+minilibx_macos/
+.DS_Store
+*.dSYM/

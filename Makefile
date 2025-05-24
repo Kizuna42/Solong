@@ -6,7 +6,7 @@
 #    By: kizuna <kizuna@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/21 15:39:19 by kishino           #+#    #+#              #
-#    Updated: 2025/05/24 17:33:23 by kizuna           ###   ########.fr        #
+#    Updated: 2025/05/24 17:49:58 by kizuna           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,6 +45,7 @@ all: $(NAME)
 
 lib:
 	@make -C $(LIBFT_PATH)
+	@ranlib $(LIBFT_LIB)
 
 mlx:
 	@make -sC $(MLX_PATH)

@@ -6,7 +6,7 @@
 #    By: kizuna <kizuna@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/25 16:01:19 by kizuna            #+#    #+#              #
-#    Updated: 2025/05/24 17:19:08 by kizuna           ###   ########.fr        #
+#    Updated: 2025/05/24 17:49:50 by kizuna           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,9 +49,11 @@ all: $(NAME)
 
 $(NAME): $(OBJS)
 	ar rcs $(NAME) $(OBJS)
+	ranlib $(NAME)
 
 bonus: $(OBJS) $(BONUS_OBJS)
 	ar rcs $(NAME) $(OBJS) $(BONUS_OBJS)
+	ranlib $(NAME)
 
 clean:
 	rm -f $(OBJS) $(BONUS_OBJS)
