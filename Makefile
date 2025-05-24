@@ -6,7 +6,7 @@
 #    By: kizuna <kizuna@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/21 15:39:19 by kishino           #+#    #+#              #
-#    Updated: 2025/05/24 17:49:58 by kizuna           ###   ########.fr        #
+#    Updated: 2025/05/24 20:26:16 by kizuna           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,7 +33,8 @@ SRC_FILES	= map.c \
 			render_mouv.c \
 			set.c \
 			texture.c \
-			utils.c
+			utils.c \
+			flood_fill.c
 
 SRC		= $(addprefix $(SRC_DIR), $(SRC_FILES))
 OBJ		= $(SRC:.c=.o)

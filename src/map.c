@@ -6,7 +6,7 @@
 /*   By: kizuna <kizuna@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 15:06:53 by kishino           #+#    #+#             */
-/*   Updated: 2025/05/24 17:21:01 by kizuna           ###   ########.fr       */
+/*   Updated: 2025/05/24 20:26:08 by kizuna           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,11 @@ char	**load_map(int fd, t_data *data)
 	if (!data->map || !validate_map_structure(data))
 		return (ft_free_map(data));
 	ft_check_content(data);
+	if (!check_map_solvable(data))
+	{
+		ft_free_map(data);
+		return (ft_error("Error\nMap is not solvable\n"));
+	}
 	return (data->map);
 }
 

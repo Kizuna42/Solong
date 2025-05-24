@@ -6,7 +6,7 @@
 /*   By: kizuna <kizuna@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/04 22:41:21 by kishino           #+#    #+#             */
-/*   Updated: 2025/05/24 17:32:17 by kizuna           ###   ########.fr       */
+/*   Updated: 2025/05/24 20:25:58 by kizuna           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,8 @@ typedef struct data_s
 	t_img	img;
 	t_pos	pos;
 	int		count;
+	int		flood_collect_count;
+	int		flood_exit_found;
 }				t_data;
 
 int		ft_berchr(char *str, char *cmp);
@@ -98,5 +100,6 @@ void	render_top(t_data *data);
 void	print_img(t_data *data, void *img, int x, int y);
 int		key_press(int keysym, t_data *data);
 int		end(t_data *data);
+int		check_map_solvable(t_data *data);
 
 #endif
