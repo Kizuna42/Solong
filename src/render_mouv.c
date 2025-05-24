@@ -6,7 +6,7 @@
 /*   By: kishino <kishino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 15:06:42 by kishino           #+#    #+#             */
-/*   Updated: 2025/05/21 18:41:20 by kishino          ###   ########.fr       */
+/*   Updated: 2025/05/24 18:09:17 by kishino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	render_top(t_data *data)
 		{
 			if (chk_collect(data) == 0)
 			{
-				printf("Felicitation vous avez gagne en : %d coup !\n",
+				printf("Congratulations! You won in : %d !\n",
 					data->count);
 				end(data);
 			}
@@ -60,7 +60,7 @@ void	render_right(t_data *data)
 		{
 			if (chk_collect(data) == 0)
 			{
-				printf("Felicitation vous avez gagne en : %d coup !\n",
+				printf("Congratulations! You won in : %d !\n",
 					data->count);
 				end(data);
 			}
@@ -88,7 +88,7 @@ void	render_left(t_data *data)
 		{
 			if (chk_collect(data) == 0)
 			{
-				printf("Felicitation vous avez gagne en : %d coup !\n",
+				printf("Congratulations! You won in : %d !\n",
 					data->count);
 				end(data);
 			}
@@ -116,7 +116,7 @@ void	render_down(t_data *data)
 		{
 			if (chk_collect(data) == 0)
 			{
-				printf("Felicitation vous avez gagne en : %d coup !\n",
+				printf("Congratulations! You won in : %d !\n",
 					data->count);
 				end(data);
 			}
