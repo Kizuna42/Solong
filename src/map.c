@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kishino <kishino@student.42.fr>            +#+  +:+       +#+        */
+/*   By: kizuna <kizuna@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 15:06:53 by kishino           #+#    #+#             */
-/*   Updated: 2025/05/21 20:18:51 by kishino          ###   ########.fr       */
+/*   Updated: 2025/05/24 17:21:01 by kizuna           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,23 +16,19 @@ char	*get_map(int fd)
 {
 	char	*line_map;
 	char	*buff;
-	int		char_count;
 	char	*tmp_buff;
 
-	line_map = ft_strdup("");
+	line_map = get_next_line(fd);
 	buff = ft_strdup("");
-	char_count = gnl(fd, &line_map);
-	while (char_count > 0)
+	while (line_map != NULL)
 	{
 		tmp_buff = buff;
 		buff = ft_strjoin(buff, line_map);
 		free(tmp_buff);
 		free(line_map);
-		line_map = ft_strdup("");
-		char_count = gnl(fd, &line_map);
+		line_map = get_next_line(fd);
 	}
-	free(line_map);
-	if (char_count < 0 || !*buff)
+	if (!*buff)
 		return (free(buff), ft_error("Error\nWrong lecture map\n"));
 	return (buff);
 }

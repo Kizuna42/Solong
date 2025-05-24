@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: kishino <kishino@student.42.fr>            +#+  +:+       +#+         #
+#    By: kizuna <kizuna@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/25 16:01:19 by kizuna            #+#    #+#              #
-#    Updated: 2025/05/04 22:36:18 by kishino          ###   ########.fr        #
+#    Updated: 2025/05/24 17:19:08 by kizuna           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,44 +24,12 @@ FT_PUT_DIR = $(SRCS_DIR)ft_put/
 FT_STR_DIR = $(SRCS_DIR)ft_str/
 FT_TO_DIR = $(SRCS_DIR)ft_to/
 GNL_DIR = $(SRCS_DIR)gnl/
-SRCS = $(FT_IS_DIR)ft_isalnum.c \
-		$(FT_IS_DIR)ft_isalpha.c \
-		$(FT_IS_DIR)ft_isascii.c \
-		$(FT_IS_DIR)ft_isdigit.c \
-		$(FT_IS_DIR)ft_isprint.c \
-		$(FT_TO_DIR)ft_atoi.c \
-		$(FT_TO_DIR)ft_itoa.c \
-		$(FT_TO_DIR)ft_tolower.c \
-		$(FT_TO_DIR)ft_toupper.c \
-		$(FT_MEM_DIR)ft_bzero.c \
-		$(FT_MEM_DIR)ft_calloc.c \
-		$(FT_MEM_DIR)ft_memchr.c \
-		$(FT_MEM_DIR)ft_memcmp.c \
-		$(FT_MEM_DIR)ft_memcpy.c \
-		$(FT_MEM_DIR)ft_memmove.c \
-		$(FT_MEM_DIR)ft_memset.c \
-		$(FT_PUT_DIR)ft_putchar_fd.c \
-		$(FT_PUT_DIR)ft_putendl_fd.c \
-		$(FT_PUT_DIR)ft_putnbr_fd.c \
-		$(FT_PUT_DIR)ft_putstr_fd.c \
-		$(FT_STR_DIR)ft_split.c \
-		$(FT_STR_DIR)ft_strchr.c \
-		$(FT_STR_DIR)ft_strdup.c \
-		$(FT_STR_DIR)ft_strjoin.c \
-		$(FT_STR_DIR)ft_strlcat.c \
-		$(FT_STR_DIR)ft_strlcpy.c \
-		$(FT_STR_DIR)ft_strlen.c \
-		$(FT_STR_DIR)ft_strmapi.c \
-		$(FT_STR_DIR)ft_strncmp.c \
-		$(FT_STR_DIR)ft_strnstr.c \
-		$(FT_STR_DIR)ft_strrchr.c \
-		$(FT_STR_DIR)ft_strtrim.c \
-		$(FT_STR_DIR)ft_substr.c \
-		$(FT_STR_DIR)ft_striteri.c \
-		$(GNL_DIR)get_next_line.c \
-		$(GNL_DIR)get_next_line_utils.c \
-		$(GNL_DIR)get_next_line_utils2.c \
-		$(GNL_DIR)gnl.c \
+SRCS = $(addprefix $(SRCS_DIR), $(addprefix ft_is/, ft_isalnum.c ft_isalpha.c ft_isascii.c ft_isdigit.c ft_isprint.c)) \
+		$(addprefix $(SRCS_DIR), $(addprefix ft_to/, ft_atoi.c ft_itoa.c ft_tolower.c ft_toupper.c)) \
+		$(addprefix $(SRCS_DIR), $(addprefix ft_mem/, ft_bzero.c ft_calloc.c ft_memchr.c ft_memcmp.c ft_memcpy.c ft_memmove.c ft_memset.c)) \
+		$(addprefix $(SRCS_DIR), $(addprefix ft_put/, ft_putchar_fd.c ft_putendl_fd.c ft_putnbr_fd.c ft_putstr_fd.c)) \
+		$(addprefix $(SRCS_DIR), $(addprefix ft_str/, ft_split.c ft_strchr.c ft_strdup.c ft_strjoin.c ft_strlcat.c ft_strlcpy.c ft_strlen.c ft_strmapi.c ft_strncmp.c ft_strnstr.c ft_strrchr.c ft_strtrim.c ft_substr.c ft_striteri.c)) \
+		$(addprefix $(SRCS_DIR), $(addprefix gnl/, get_next_line.c get_next_line_utils.c get_next_line_utils2.c))
 
 
 BONUS = $(FT_LST_DIR)ft_lstnew_bonus.c \

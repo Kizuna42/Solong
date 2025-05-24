@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kishino <kishino@student.42.fr>            +#+  +:+       +#+        */
+/*   By: kizuna <kizuna@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/04 22:41:21 by kishino           #+#    #+#             */
-/*   Updated: 2025/05/21 20:14:25 by kishino          ###   ########.fr       */
+/*   Updated: 2025/05/24 17:32:17 by kizuna           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,9 @@
 # include <X11/keysym.h>
 # include <X11/X.h>
 # include <fcntl.h>
+
+// get_next_line関数のプロトタイプ
+char	*get_next_line(int fd);
 
 typedef struct img_s
 {
