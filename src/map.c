@@ -3,21 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   map.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kizuna <kizuna@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kishino <kishino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 15:06:53 by kishino           #+#    #+#             */
-/*   Updated: 2025/05/21 15:26:38 by kizuna           ###   ########.fr       */
+/*   Updated: 2025/05/21 20:18:51 by kishino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/so_long.h"
 
-/**
- * マップをファイルから読み込み、文字列として返す
- *
- * @param fd 読み込むファイルディスクリプタ
- * @return マップ文字列、エラーの場合はNULL
- */
 char	*get_map(int fd)
 {
 	char	*line_map;
@@ -28,34 +22,27 @@ char	*get_map(int fd)
 	line_map = ft_strdup("");
 	buff = ft_strdup("");
 	char_count = gnl(fd, &line_map);
-	if (char_count > 0)
+	while (char_count > 0)
 	{
 		tmp_buff = buff;
-		while (char_count > 0)
-		{
-			buff = ft_strjoin(buff, line_map);
-			free(tmp_buff);
-			free(line_map);
-			line_map = ft_strdup("");
-			char_count = gnl(fd, &line_map);
-			tmp_buff = buff;
-		}
-		return (buff);
+		buff = ft_strjoin(buff, line_map);
+		free(tmp_buff);
+		free(line_map);
+		line_map = ft_strdup("");
+		char_count = gnl(fd, &line_map);
 	}
-	ft_error("Error\nWrong lecture map\n");
-	return (NULL);
+	free(line_map);
+	if (char_count < 0 || !*buff)
+		return (free(buff), ft_error("Error\nWrong lecture map\n"));
+	return (buff);
 }
 
-/**
- * マップメモリを解放する
- *
- * @param data ゲームデータ構造体
- * @return 常にNULL
- */
 void	*ft_free_map(t_data *data)
 {
 	int	i;
 
+	if (!data || !data->map)
+		return (NULL);
 	i = 0;
 	while (data->map[i] != NULL)
 	{
@@ -67,45 +54,41 @@ void	*ft_free_map(t_data *data)
 	return (NULL);
 }
 
-/**
- * マップを解析して有効性をチェックする
- *
- * @param fd ファイルディスクリプタ
- * @param data ゲームデータ構造体
- * @return 有効な場合はマップ配列、無効な場合はNULL
- */
-char	**parse_map(int fd, t_data *data)
+int	validate_map_structure(t_data *data)
 {
 	int	i;
 
 	i = 1;
-	data->map = ft_split(get_map(fd), '\n');
-	ft_check_content(data);
-	if (!(ft_check_format(data->map)))
-		return (ft_free_map(data));
-	if (!(ft_check_line(data->map[0], data->content.wall)))
-		return (ft_free_map(data));
-	while (data->map[i] != NULL)
+	if (!ft_check_format(data->map))
+		return (0);
+	if (!ft_check_line(data->map[0], data->content.wall))
+		return (0);
+	while (data->map[i])
 	{
-		if (!(ft_check_col(data->map[i], data->content.wall, data)))
-			return (ft_free_map(data));
-		else if (!(ft_check_other(data->map[i], &(data->content))))
-			return (ft_free_map(data));
+		if (!ft_check_col(data->map[i], data->content.wall, data)
+			|| !ft_check_other(data->map[i], &(data->content)))
+			return (0);
 		i++;
 	}
 	data->height = i;
-	if (!(ft_check_line(data->map[i - 1], data->content.wall)))
+	return (ft_check_line(data->map[i - 1], data->content.wall));
+}
+
+char	**load_map(int fd, t_data *data)
+{
+	char	*raw_map;
+
+	raw_map = get_map(fd);
+	if (!raw_map)
 		return (ft_free_map(data));
+	data->map = ft_split(raw_map, '\n');
+	free(raw_map);
+	if (!data->map || !validate_map_structure(data))
+		return (ft_free_map(data));
+	ft_check_content(data);
 	return (data->map);
 }
 
-/**
- * マップ処理のメイン関数
- *
- * @param str コマンドライン引数
- * @param data ゲームデータ構造体
- * @return 有効なマップ配列、エラーの場合はNULL
- */
 char	**map_core(char **str, t_data *data)
 {
 	int	fd;
@@ -114,20 +97,17 @@ char	**map_core(char **str, t_data *data)
 	data->map = NULL;
 	if (ft_berchr(str[1], ".ber") == 0)
 		return (ft_error("Error\nNo correct format map founded\n"));
-	else
+	fd = open(str[1], O_RDONLY);
+	if (fd <= 0)
+		return (ft_error("Error\nFailed to open file\n"));
+	if (!load_map(fd, data))
+		return (NULL);
+	if ((data->content.count_c == 0 || data->content.count_e != 1
+			|| data->content.count_p != 1) && data->map != NULL)
 	{
-		fd = open(str[1], O_RDONLY);
-		if (fd > 0)
-			data->map = parse_map(fd, data);
-		else
-			return (ft_error("Error\nFailed to open file\n"));
-		if ((data->content.count_c == 0 || data->content.count_e != 1
-				|| data->content.count_p != 1) && data->map != NULL)
-		{
-			ft_free_map(data);
-			return (ft_error(
-					"Error\nNeed 1 Player/Exit and at least 1 Object\n"));
-		}
+		ft_free_map(data);
+		return (ft_error(
+				"Error\nNeed 1 Player/Exit and at least 1 Object\n"));
 	}
 	return (data->map);
 }

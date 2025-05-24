@@ -3,21 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   texture.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kizuna <kizuna@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kishino <kishino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 15:06:23 by kishino           #+#    #+#             */
-/*   Updated: 2025/05/21 15:27:46 by kizuna           ###   ########.fr       */
+/*   Updated: 2025/05/21 18:41:53 by kishino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/so_long.h"
 
-/**
- * マップ内の収集アイテム数をチェック
- *
- * @param data ゲームデータ構造体
- * @return 収集アイテムの数
- */
 int	chk_collect(t_data *data)
 {
 	int	i;
@@ -41,12 +35,6 @@ int	chk_collect(t_data *data)
 	return (count);
 }
 
-/**
- * ゲームを終了し、リソースを解放
- *
- * @param data ゲームデータ構造体
- * @return 0
- */
 int	end(t_data *data)
 {
 	int	i;
@@ -72,13 +60,6 @@ int	end(t_data *data)
 	exit(0);
 }
 
-/**
- * キーボード入力を処理
- *
- * @param keysym 押されたキー
- * @param data ゲームデータ構造体
- * @return 0
- */
 int	key_press(int keysym, t_data *data)
 {
 	if (keysym == XK_Escape)
@@ -94,13 +75,6 @@ int	key_press(int keysym, t_data *data)
 	return (0);
 }
 
-/**
- * メイン関数
- *
- * @param argc コマンドライン引数の数
- * @param argv コマンドライン引数
- * @return 正常終了時1、エラー時0
- */
 int	main(int argc, char **argv)
 {
 	t_data	data;

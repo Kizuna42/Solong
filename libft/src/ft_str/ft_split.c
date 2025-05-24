@@ -6,7 +6,7 @@
 /*   By: kishino <kishino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 00:42:18 by kizuna            #+#    #+#             */
-/*   Updated: 2024/12/03 13:28:35 by kishino          ###   ########.fr       */
+/*   Updated: 2025/05/21 19:43:20 by kishino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static size_t	ft_countword(char const *s, char c)
 {
 	size_t	count;
 
-	if (!*s)
+	if (!s || !*s)
 		return (0);
 	count = 0;
 	while (*s)

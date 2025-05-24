@@ -3,20 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   render_mouv.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kizuna <kizuna@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kishino <kishino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 15:06:42 by kishino           #+#    #+#             */
-/*   Updated: 2025/05/21 15:29:00 by kizuna           ###   ########.fr       */
+/*   Updated: 2025/05/21 18:41:20 by kishino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/so_long.h"
 
-/**
- * プレイヤーを上に移動
- *
- * @param data ゲームデータ構造体
- */
 void	render_top(t_data *data)
 {
 	int		pos_x;
@@ -45,11 +40,6 @@ void	render_top(t_data *data)
 	}
 }
 
-/**
- * プレイヤーを右に移動
- *
- * @param data ゲームデータ構造体
- */
 void	render_right(t_data *data)
 {
 	int		pos_x;
@@ -78,11 +68,6 @@ void	render_right(t_data *data)
 	}
 }
 
-/**
- * プレイヤーを左に移動
- *
- * @param data ゲームデータ構造体
- */
 void	render_left(t_data *data)
 {
 	int		pos_x;
@@ -111,11 +96,6 @@ void	render_left(t_data *data)
 	}
 }
 
-/**
- * プレイヤーを下に移動
- *
- * @param data ゲームデータ構造体
- */
 void	render_down(t_data *data)
 {
 	int		pos_x;

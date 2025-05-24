@@ -3,23 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   map_checker.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kizuna <kizuna@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kishino <kishino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 15:06:59 by kishino           #+#    #+#             */
-/*   Updated: 2025/05/21 15:29:00 by kizuna           ###   ########.fr       */
+/*   Updated: 2025/05/21 18:40:24 by kishino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/so_long.h"
 
-/**
- * マップの列（縦）が壁で囲まれているかチェック
- *
- * @param map_line マップの行
- * @param wall 壁を表す文字
- * @param data ゲームデータ構造体
- * @return 有効なら1、無効なら0
- */
 int	ft_check_col(char *map_line, char wall, t_data *data)
 {
 	int	i;
@@ -36,13 +28,6 @@ int	ft_check_col(char *map_line, char wall, t_data *data)
 	return (1);
 }
 
-/**
- * マップの行（横）が壁のみで構成されているかチェック
- *
- * @param map_line マップの行
- * @param wall 壁を表す文字
- * @return 有効なら1、無効なら0
- */
 int	ft_check_line(char *map_line, char wall)
 {
 	int	i;
@@ -60,13 +45,6 @@ int	ft_check_line(char *map_line, char wall)
 	return (1);
 }
 
-/**
- * マップが有効な記号のみで構成されているかチェック
- *
- * @param map_line マップの行
- * @param content ゲームコンテンツ構造体
- * @return 有効なら1、無効なら0
- */
 int	ft_check_other(char *map_line, t_cnt *content)
 {
 	int	i;
@@ -91,11 +69,6 @@ int	ft_check_other(char *map_line, t_cnt *content)
 	return (1);
 }
 
-/**
- * マップ内のオブジェクト数をカウント
- *
- * @param data ゲームデータ構造体
- */
 void	ft_check_content(t_data *data)
 {
 	int	i;
@@ -120,12 +93,6 @@ void	ft_check_content(t_data *data)
 	}
 }
 
-/**
- * マップが長方形または正方形かチェック
- *
- * @param map マップ配列
- * @return 有効なら1、無効なら0
- */
 int	ft_check_format(char **map)
 {
 	int	y;

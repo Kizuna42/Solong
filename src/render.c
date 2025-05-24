@@ -3,20 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kizuna <kizuna@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kishino <kishino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 15:06:35 by kishino           #+#    #+#             */
-/*   Updated: 2025/05/21 15:28:08 by kizuna           ###   ########.fr       */
+/*   Updated: 2025/05/21 18:41:34 by kishino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/so_long.h"
 
-/**
- * 背景（壁と床）を描画
- *
- * @param data ゲームデータ構造体
- */
 void	render_background(t_data *data)
 {
 	int	i;
@@ -39,11 +34,6 @@ void	render_background(t_data *data)
 	}
 }
 
-/**
- * オブジェクト（プレイヤー、収集品、出口）を描画
- *
- * @param data ゲームデータ構造体
- */
 void	render_other(t_data *data)
 {
 	int	i;
@@ -72,12 +62,6 @@ void	render_other(t_data *data)
 	}
 }
 
-/**
- * ゲーム全体を描画
- *
- * @param data ゲームデータ構造体
- * @return 0
- */
 int	render(t_data *data)
 {
 	render_background(data);
@@ -85,11 +69,6 @@ int	render(t_data *data)
 	return (0);
 }
 
-/**
- * ゲームのメインレンダリングループを開始
- *
- * @param data ゲームデータ構造体
- */
 void	core_render(t_data *data)
 {
 	data->mlx_win = mlx_new_window(data->mlx_ptr,
@@ -107,14 +86,6 @@ void	core_render(t_data *data)
 	end(data);
 }
 
-/**
- * 指定された座標に画像を描画
- *
- * @param data ゲームデータ構造体
- * @param img 描画する画像
- * @param x X座標
- * @param y Y座標
- */
 void	print_img(t_data *data, void *img, int x, int y)
 {
 	mlx_put_image_to_window(data->mlx_ptr, data->mlx_win, img,
