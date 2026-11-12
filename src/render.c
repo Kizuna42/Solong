@@ -62,8 +62,11 @@ void	render_other(t_data *data)
 	}
 }
 
-int	render(t_data *data)
+int	render(void *param)
 {
+	t_data	*data;
+
+	data = param;
 	render_background(data);
 	render_other(data);
 	return (0);
@@ -79,7 +82,8 @@ void	core_render(t_data *data)
 		ft_error("Error\nFailed to create window\n");
 		cleanup_exit(data, 1);
 	}
-	mlx_loop_hook(data->mlx_ptr, &render, data);
+	render(data);
+	mlx_expose_hook(data->mlx_win, &render, data);
 	mlx_hook(data->mlx_win, KeyRelease, KeyReleaseMask, &key_press, data);
 	mlx_hook(data->mlx_win, 17, 0, &end, data);
 	mlx_loop(data->mlx_ptr);

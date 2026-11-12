@@ -17,7 +17,6 @@
 # include "../minilibx-linux/mlx.h"
 # include <stdlib.h>
 # include <unistd.h>
-# include <stdio.h>
 # include <string.h>
 # include <X11/keysym.h>
 # include <X11/X.h>
@@ -77,6 +76,7 @@ typedef struct data_s
 
 int		ft_berchr(char *str, char *cmp);
 void	*ft_error(char *str);
+void	print_count(char *before, int count, char *after);
 int		has_empty_line(char *raw);
 char	*get_map(int fd);
 char	**map_core(char **str, t_data *data);
@@ -92,7 +92,7 @@ int		chk_collect(t_data *data);
 int		set_img(t_data *data);
 void	set_content(t_cnt *content);
 void	core_render(t_data *data);
-int		render(t_data *data);
+int		render(void *param);
 void	render_other(t_data *data);
 void	render_background(t_data *data);
 void	render_down(t_data *data);

@@ -43,6 +43,9 @@ int	end(t_data *data)
 
 int	key_press(int keysym, t_data *data)
 {
+	int	prev_count;
+
+	prev_count = data->count;
 	if (keysym == XK_Escape)
 		end(data);
 	if (keysym == XK_w)
@@ -53,6 +56,8 @@ int	key_press(int keysym, t_data *data)
 		render_left(data);
 	if (keysym == XK_s)
 		render_down(data);
+	if (data->count != prev_count)
+		render(data);
 	return (0);
 }
 
