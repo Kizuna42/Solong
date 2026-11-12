@@ -1,0 +1,58 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends \
+            gcc make xorg libx11-dev libxext-dev libbsd-dev xvfb valgrind
+
+      - name: Fetch MiniLibX (Linux)
+        run: git clone --depth 1 https://github.com/42Paris/minilibx-linux.git minilibx-linux
+
+      - name: Build
+        run: make
+
+      - name: Check that make does not relink
+        run: |
+          make 2>&1 | tee make2.log
+          if grep -q -- '-o so_long' make2.log; then
+            echo "::error::make relinked so_long on a second run"
+            exit 1
+          fi
+
+      - name: Map validation tests
+        run: ./tests/run_tests.sh
+
+      - name: Map validation tests (valgrind)
+        run: VALGRIND=1 ./tests/run_tests.sh
+
+  norminette:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install norminette
+        run: pip install norminette
+      - name: Norminette (so_long sources)
+        run: norminette src includes
+      - name: Norminette (libft, informational)
+        continue-on-error: true
+        run: norminette libft
