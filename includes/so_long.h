@@ -92,7 +92,7 @@ int		chk_collect(t_data *data);
 int		set_img(t_data *data);
 void	set_content(t_cnt *content);
 void	core_render(t_data *data);
-int		render(t_data *data);
+int		render(void *param);
 void	render_other(t_data *data);
 void	render_background(t_data *data);
 void	render_down(t_data *data);

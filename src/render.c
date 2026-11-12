@@ -62,8 +62,11 @@ void	render_other(t_data *data)
 	}
 }
 
-int	render(t_data *data)
+int	render(void *param)
 {
+	t_data	*data;
+
+	data = param;
 	render_background(data);
 	render_other(data);
 	return (0);
