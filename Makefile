@@ -13,7 +13,9 @@
 NAME		= so_long
 
 CC			= cc
-CFLAGS		= -Wall -Wextra -Werror -I$(INC_DIR)
+# MiniLibX のコールバック型 int (*)() は C23 では int (*)(void) と解釈されるため、
+# C23 がデフォルトの GCC 15 以降でもビルドできるよう規格を固定する
+CFLAGS		= -Wall -Wextra -Werror -std=gnu17 -I$(INC_DIR)
 
 LIBFT_PATH	= ./libft/
 LIBFT_FILE	= libft.a
