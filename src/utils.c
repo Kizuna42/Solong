@@ -12,22 +12,20 @@
 
 #include "../includes/so_long.h"
 
-int	ft_same_char(char *str)
+int	has_empty_line(char *raw)
 {
-	int		i;
-	char	buff;
+	int	i;
 
+	if (raw[0] == '\n')
+		return (1);
 	i = 0;
-	buff = '1';
-	if (str == NULL)
-		return (-1);
-	while (str[i])
+	while (raw[i])
 	{
-		if (str[i] != buff && str[i] != '\n')
-			return (0);
+		if (raw[i] == '\n' && raw[i + 1] == '\n')
+			return (1);
 		i++;
 	}
-	return (1);
+	return (0);
 }
 
 void	*ft_error(char *str)

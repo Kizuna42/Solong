@@ -37,27 +37,8 @@ int	chk_collect(t_data *data)
 
 int	end(t_data *data)
 {
-	int	i;
-
-	i = 0;
-	if (data->map != NULL)
-	{
-		while (data->map[i] != NULL)
-		{
-			free(data->map[i]);
-			i++;
-		}
-		free(data->map);
-		mlx_destroy_image(data->mlx_ptr, data->img.img_wall);
-		mlx_destroy_image(data->mlx_ptr, data->img.img_floor);
-		mlx_destroy_image(data->mlx_ptr, data->img.img_collect);
-		mlx_destroy_image(data->mlx_ptr, data->img.img_player);
-		mlx_destroy_image(data->mlx_ptr, data->img.img_exit);
-		mlx_destroy_window(data->mlx_ptr, data->mlx_win);
-	}
-	mlx_destroy_display(data->mlx_ptr);
-	free(data->mlx_ptr);
-	exit(0);
+	cleanup_exit(data, 0);
+	return (0);
 }
 
 int	key_press(int keysym, t_data *data)
@@ -82,21 +63,21 @@ int	main(int argc, char **argv)
 	if (argc != 2)
 	{
 		ft_error("Error\nThis programe take 1 argument .ber\n");
-		return (0);
+		return (1);
 	}
-	else
+	ft_bzero(&data, sizeof(t_data));
+	set_content(&(data.content));
+	if (map_core(argv, &data) == NULL)
+		return (1);
+	data.mlx_ptr = mlx_init();
+	if (data.mlx_ptr == NULL)
 	{
-		data.count = 0;
-		data.mlx_ptr = mlx_init();
-		set_content(&(data.content));
-		data.map = map_core(argv, &data);
-		if (data.map != NULL)
-		{
-			set_img(&data);
-			core_render(&data);
-		}
-		else
-			end(&data);
+		ft_free_map(&data);
+		ft_error("Error\nFailed to initialize MiniLibX\n");
+		return (1);
 	}
-	return (1);
+	if (!set_img(&data))
+		cleanup_exit(&data, 1);
+	core_render(&data);
+	return (0);
 }

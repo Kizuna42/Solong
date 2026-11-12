@@ -34,7 +34,8 @@ SRC_FILES	= map.c \
 			set.c \
 			texture.c \
 			utils.c \
-			flood_fill.c
+			flood_fill.c \
+			cleanup.c
 
 SRC		= $(addprefix $(SRC_DIR), $(SRC_FILES))
 OBJ		= $(SRC:.c=.o)

@@ -76,8 +76,8 @@ void	core_render(t_data *data)
 			"So_long");
 	if (data->mlx_win == NULL)
 	{
-		free(data->mlx_ptr);
-		return ;
+		ft_error("Error\nFailed to create window\n");
+		cleanup_exit(data, 1);
 	}
 	mlx_loop_hook(data->mlx_ptr, &render, data);
 	mlx_hook(data->mlx_win, KeyRelease, KeyReleaseMask, &key_press, data);

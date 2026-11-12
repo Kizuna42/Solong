@@ -24,7 +24,13 @@ void	set_content(t_cnt *content)
 	content->count_c = 0;
 }
 
-void	set_img(t_data *data)
+static void	*load_xpm(t_data *data, char *path)
+{
+	return (mlx_xpm_file_to_image(data->mlx_ptr, path,
+			&(data->img.width), &(data->img.height)));
+}
+
+int	set_img(t_data *data)
 {
 	data->img.height = 80;
 	data->img.width = 80;
@@ -33,14 +39,16 @@ void	set_img(t_data *data)
 	data->img.collect = "./textures/collect.xpm";
 	data->img.player = "./textures/mario_player.xpm";
 	data->img.exit = "./textures/exit_texture.xpm";
-	data->img.img_wall = mlx_xpm_file_to_image(data->mlx_ptr, data->img.wall,
-			&(data->img.width), &(data->img.height));
-	data->img.img_floor = mlx_xpm_file_to_image(data->mlx_ptr, data->img.floor,
-			&(data->img.width), &(data->img.height));
-	data->img.img_exit = mlx_xpm_file_to_image(data->mlx_ptr, data->img.exit,
-			&(data->img.width), &(data->img.height));
-	data->img.img_collect = mlx_xpm_file_to_image(data->mlx_ptr,
-			data->img.collect, &(data->img.width), &(data->img.height));
-	data->img.img_player = mlx_xpm_file_to_image(data->mlx_ptr,
-			data->img.player, &(data->img.width), &(data->img.height));
+	data->img.img_wall = load_xpm(data, data->img.wall);
+	data->img.img_floor = load_xpm(data, data->img.floor);
+	data->img.img_exit = load_xpm(data, data->img.exit);
+	data->img.img_collect = load_xpm(data, data->img.collect);
+	data->img.img_player = load_xpm(data, data->img.player);
+	if (!data->img.img_wall || !data->img.img_floor || !data->img.img_exit
+		|| !data->img.img_collect || !data->img.img_player)
+	{
+		ft_error("Error\nFailed to load textures\n");
+		return (0);
+	}
+	return (1);
 }

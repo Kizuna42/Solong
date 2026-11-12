@@ -61,7 +61,10 @@ static void	flood_fill_recursive(char **map, int x, int y, t_data *data)
 	if (map[y][x] == data->content.collect)
 		data->flood_collect_count++;
 	if (map[y][x] == data->content.exit)
+	{
 		data->flood_exit_found = 1;
+		return ;
+	}
 	map[y][x] = 'F';
 	flood_fill_recursive(map, x + 1, y, data);
 	flood_fill_recursive(map, x - 1, y, data);
