@@ -24,7 +24,15 @@
 ```bash
 # 必要なパッケージをインストール
 sudo apt-get update
-sudo apt-get install gcc make xorg libxext-dev libbsd-dev
+sudo apt-get install gcc make xorg libx11-dev libxext-dev libbsd-dev
+```
+
+### MiniLibX の取得
+
+`minilibx-linux/` はリポジトリに含まれていない（`.gitignore` 対象）ため、ビルド前にリポジトリ直下へ配置する。
+
+```bash
+git clone https://github.com/42Paris/minilibx-linux.git minilibx-linux
 ```
 
 ## 🚀 コンパイル・実行
@@ -67,24 +75,50 @@ make re       # 再コンパイル
 ```
 Solong/
 ├── src/                 # ソースファイル
-│   ├── map.c           # マップ読み込み・検証
+│   ├── map.c           # マップ読み込み
+│   ├── map_checker.c   # マップ形式の検証
+│   ├── flood_fill.c    # 到達可能性判定
 │   ├── render.c        # 描画処理
-│   ├── texture.c       # メイン・キー処理
+│   ├── render_mouv.c   # 移動処理
+│   ├── texture.c       # main・キー処理
+│   ├── cleanup.c       # リソース解放・終了処理
 │   └── ...
 ├── includes/           # ヘッダファイル
-├── libft/             # 42ライブラリ
-├── minilibx-linux/    # MiniLibX Linux版
+├── libft/             # 42ライブラリ（get_next_line を含む）
+├── minilibx-linux/    # MiniLibX Linux版（別途取得、git 管理外）
 ├── textures/          # ゲーム画像
 ├── map/              # テストマップ
+├── tests/            # テストスクリプト
 └── Makefile
 ```
 
-## 🧪 テストマップ
+## 🧪 テスト
 
-- `map_correct.ber`: 正常なマップ
-- `map_multiplayer.ber`: エラーテスト（複数プレイヤー）
-- `map_not_closed.ber`: エラーテスト（壁未完成）
-- `map_no_collect.ber`: エラーテスト（収集アイテムなし）
+```bash
+make
+./tests/run_tests.sh              # 不正マップがエラー終了するか、有効マップで起動するかを確認
+VALGRIND=1 ./tests/run_tests.sh   # エラー系ケースを valgrind でリークチェック
+```
+
+- 不正なマップでは `Error` で始まるメッセージを標準エラーに出力し、終了コード 1 で終了する
+- 有効マップの起動確認は `DISPLAY` があるか `xvfb-run` が使える環境でのみ実行される
+- GitHub Actions（`.github/workflows/ci.yml`）で、ビルド・再リンクの有無・上記テスト・norminette を実行する
+
+### テストマップ（`map/`）
+
+| ファイル | 内容 |
+| --- | --- |
+| `map_correct.ber`, `map_minimal.ber` | 正常なマップ |
+| `map_empty.ber` | 空ファイル |
+| `map_empty_line.ber` | 途中に空行 |
+| `map_not_rectangle.ber` | 長方形でない |
+| `map_unknown_char.ber` | 未知の文字 |
+| `map_not_closed.ber` | 壁で囲まれていない |
+| `map_one_line.ber` | 1 行だけ |
+| `map_no_player.ber` / `map_noexit.ber` / `map_no_collect.ber` | P / E / C がない |
+| `map_multiplayer.ber` | プレイヤーが複数 |
+| `map_unreachable.ber` | 収集アイテム・出口に到達できない |
+| `map_exit_blocks.ber` | 出口を通らないと取れない収集アイテム（出口は収集完了まで通れない） |
 
 ## ✅ 実装機能
 
@@ -119,7 +153,7 @@ Solong/
 ### 最適化実装
 
 - **get_next_line**: 1024 バイトバッファによる高速ファイル読み込み
-- **効率的描画**: 必要部分のみ再描画
+- **描画**: 現状は `mlx_loop_hook` で毎フレーム全体を再描画している（課題の「必要な要素のみ再描画」には未対応）
 - **メモリ管理**: static 変数による適切な管理
 
 ### Linux 専用設定

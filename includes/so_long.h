@@ -77,17 +77,19 @@ typedef struct data_s
 
 int		ft_berchr(char *str, char *cmp);
 void	*ft_error(char *str);
-int		ft_same_char(char *str);
+int		has_empty_line(char *raw);
 char	*get_map(int fd);
 char	**map_core(char **str, t_data *data);
-int		chk_map(char **argv);
+char	**load_map(int fd, t_data *data);
+int		validate_map_structure(t_data *data);
+void	*ft_free_map(t_data *data);
 int		ft_check_col(char *map_line, char col, t_data *data);
 int		ft_check_line(char *map_line, char wall);
 int		ft_check_other(char *map_line, t_cnt *content);
 void	ft_check_content(t_data *data);
 int		ft_check_format(char **map);
 int		chk_collect(t_data *data);
-void	set_img(t_data *data);
+int		set_img(t_data *data);
 void	set_content(t_cnt *content);
 void	core_render(t_data *data);
 int		render(t_data *data);
@@ -100,6 +102,7 @@ void	render_top(t_data *data);
 void	print_img(t_data *data, void *img, int x, int y);
 int		key_press(int keysym, t_data *data);
 int		end(t_data *data);
+void	cleanup_exit(t_data *data, int status);
 int		check_map_solvable(t_data *data);
 
 #endif

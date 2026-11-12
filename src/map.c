@@ -18,18 +18,24 @@ char	*get_map(int fd)
 	char	*buff;
 	char	*tmp_buff;
 
-	line_map = get_next_line(fd);
 	buff = ft_strdup("");
+	if (!buff)
+		return (ft_error("Error\nMemory allocation failed\n"));
+	line_map = get_next_line(fd);
 	while (line_map != NULL)
 	{
 		tmp_buff = buff;
 		buff = ft_strjoin(buff, line_map);
 		free(tmp_buff);
 		free(line_map);
+		if (!buff)
+			return (ft_error("Error\nMemory allocation failed\n"));
 		line_map = get_next_line(fd);
 	}
 	if (!*buff)
 		return (free(buff), ft_error("Error\nWrong lecture map\n"));
+	if (has_empty_line(buff))
+		return (free(buff), ft_error("Error\nEmpty line in map\n"));
 	return (buff);
 }
 
@@ -57,6 +63,7 @@ int	validate_map_structure(t_data *data)
 	i = 1;
 	if (!ft_check_format(data->map))
 		return (0);
+	data->width = ft_strlen(data->map[0]);
 	if (!ft_check_line(data->map[0], data->content.wall))
 		return (0);
 	while (data->map[i])
@@ -76,12 +83,21 @@ char	**load_map(int fd, t_data *data)
 
 	raw_map = get_map(fd);
 	if (!raw_map)
-		return (ft_free_map(data));
+		return (NULL);
 	data->map = ft_split(raw_map, '\n');
 	free(raw_map);
-	if (!data->map || !validate_map_structure(data))
+	if (!data->map)
+		return (ft_error("Error\nMemory allocation failed\n"));
+	if (!validate_map_structure(data))
 		return (ft_free_map(data));
 	ft_check_content(data);
+	if (data->content.count_c == 0 || data->content.count_e != 1
+		|| data->content.count_p != 1)
+	{
+		ft_free_map(data);
+		return (ft_error(
+				"Error\nNeed 1 Player/Exit and at least 1 Object\n"));
+	}
 	if (!check_map_solvable(data))
 	{
 		ft_free_map(data);
@@ -92,23 +108,16 @@ char	**load_map(int fd, t_data *data)
 
 char	**map_core(char **str, t_data *data)
 {
-	int	fd;
+	int		fd;
+	char	**map;
 
-	fd = 0;
 	data->map = NULL;
 	if (ft_berchr(str[1], ".ber") == 0)
 		return (ft_error("Error\nNo correct format map founded\n"));
 	fd = open(str[1], O_RDONLY);
-	if (fd <= 0)
+	if (fd < 0)
 		return (ft_error("Error\nFailed to open file\n"));
-	if (!load_map(fd, data))
-		return (NULL);
-	if ((data->content.count_c == 0 || data->content.count_e != 1
-			|| data->content.count_p != 1) && data->map != NULL)
-	{
-		ft_free_map(data);
-		return (ft_error(
-				"Error\nNeed 1 Player/Exit and at least 1 Object\n"));
-	}
-	return (data->map);
+	map = load_map(fd, data);
+	close(fd);
+	return (map);
 }

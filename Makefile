@@ -13,7 +13,9 @@
 NAME		= so_long
 
 CC			= cc
-CFLAGS		= -Wall -Wextra -Werror -I$(INC_DIR)
+# MiniLibX のコールバック型 int (*)() は C23 では int (*)(void) と解釈されるため、
+# C23 がデフォルトの GCC 15 以降でもビルドできるよう規格を固定する
+CFLAGS		= -Wall -Wextra -Werror -std=gnu17 -I$(INC_DIR)
 
 LIBFT_PATH	= ./libft/
 LIBFT_FILE	= libft.a
@@ -34,24 +36,29 @@ SRC_FILES	= map.c \
 			set.c \
 			texture.c \
 			utils.c \
-			flood_fill.c
+			flood_fill.c \
+			cleanup.c
 
 SRC		= $(addprefix $(SRC_DIR), $(SRC_FILES))
 OBJ		= $(SRC:.c=.o)
 
-.c.o:
-	$(CC) $(CFLAGS) -c $< -o $@
+HEADER	= $(INC_DIR)so_long.h
 
-all: $(NAME)
+all: lib $(NAME)
 
 lib:
 	@make -C $(LIBFT_PATH)
-	@ranlib $(LIBFT_LIB)
 
-mlx:
+%.o: %.c $(HEADER)
+	$(CC) $(CFLAGS) -c $< -o $@
+
+$(LIBFT_LIB):
+	@make -C $(LIBFT_PATH)
+
+$(MLX_LIB):
 	@make -sC $(MLX_PATH)
 
-$(NAME): lib mlx $(OBJ)
+$(NAME): $(LIBFT_LIB) $(MLX_LIB) $(OBJ)
 	$(CC) $(OBJ) $(LIBFT_LIB) $(MLX_LIB) $(MLX_FLAGS) -o $(NAME)
 
 clean:
@@ -65,4 +72,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all clean fclean re lib mlx
+.PHONY: all clean fclean re lib
