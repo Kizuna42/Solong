@@ -26,14 +26,14 @@ void	render_top(t_data *data)
 			data->map[pos_y - 1][pos_x] = data->content.player;
 			data->map[pos_y][pos_x] = data->content.space;
 			data->count += 1;
-			printf("count: %d\n", data->count);
+			print_count("count: ", data->count, "\n");
 		}
 		else
 		{
 			if (chk_collect(data) == 0)
 			{
-				printf("Congratulations! You won in : %d !\n",
-					data->count);
+				print_count("Congratulations! You won in : ",
+					data->count, " !\n");
 				end(data);
 			}
 		}
@@ -54,14 +54,14 @@ void	render_right(t_data *data)
 			data->map[pos_y][pos_x + 1] = data->content.player;
 			data->map[pos_y][pos_x] = data->content.space;
 			data->count += 1;
-			printf("count: %d\n", data->count);
+			print_count("count: ", data->count, "\n");
 		}
 		else
 		{
 			if (chk_collect(data) == 0)
 			{
-				printf("Congratulations! You won in : %d !\n",
-					data->count);
+				print_count("Congratulations! You won in : ",
+					data->count, " !\n");
 				end(data);
 			}
 		}
@@ -82,14 +82,14 @@ void	render_left(t_data *data)
 			data->map[pos_y][pos_x - 1] = data->content.player;
 			data->map[pos_y][pos_x] = data->content.space;
 			data->count += 1;
-			printf("count: %d\n", data->count);
+			print_count("count: ", data->count, "\n");
 		}
 		else
 		{
 			if (chk_collect(data) == 0)
 			{
-				printf("Congratulations! You won in : %d !\n",
-					data->count);
+				print_count("Congratulations! You won in : ",
+					data->count, " !\n");
 				end(data);
 			}
 		}
@@ -110,14 +110,14 @@ void	render_down(t_data *data)
 			data->map[pos_y + 1][pos_x] = data->content.player;
 			data->map[pos_y][pos_x] = data->content.space;
 			data->count += 1;
-			printf("count: %d\n", data->count);
+			print_count("count: ", data->count, "\n");
 		}
 		else
 		{
 			if (chk_collect(data) == 0)
 			{
-				printf("Congratulations! You won in : %d !\n",
-					data->count);
+				print_count("Congratulations! You won in : ",
+					data->count, " !\n");
 				end(data);
 			}
 		}

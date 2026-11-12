@@ -28,6 +28,13 @@ int	has_empty_line(char *raw)
 	return (0);
 }
 
+void	print_count(char *before, int count, char *after)
+{
+	ft_putstr_fd(before, 1);
+	ft_putnbr_fd(count, 1);
+	ft_putstr_fd(after, 1);
+}
+
 void	*ft_error(char *str)
 {
 	write(2, str, ft_strlen(str));
